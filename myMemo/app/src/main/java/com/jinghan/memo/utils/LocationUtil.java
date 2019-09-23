@@ -16,14 +16,9 @@ import androidx.core.content.ContextCompat;
 import java.io.IOException;
 import java.util.List;
 
-/**
- * Created by Jason_Jan on 2017/7/14.
- */
-
 public class LocationUtil {
-    // 纬度
+
     public static double latitude = 0.0;
-    // 经度
     public static double longitude = 0.0;
     public static LocationManager locationManager;
     public static Location location;
@@ -57,19 +52,15 @@ public class LocationUtil {
             }
         };
 
-        //获取定位服务
         locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-        //获取当前可用的位置控制器
         List<String> list = locationManager.getProviders(true);
 
         if (list.contains(LocationManager.GPS_PROVIDER)) {
-            //是否为GPS位置控制器
             provider = LocationManager.GPS_PROVIDER;
         } else if (list.contains(LocationManager.NETWORK_PROVIDER)) {
-            //是否为网络位置控制器
             provider = LocationManager.NETWORK_PROVIDER;
         } else {
-            Toast.makeText(context, "请检查网络或GPS是否打开",
+            Toast.makeText(context, "Check if GPS is Turned On",
                     Toast.LENGTH_LONG).show();
             return;
         }
@@ -83,7 +74,7 @@ public class LocationUtil {
         location = locationManager.getLastKnownLocation(provider);
 
         if (location != null) {
-            String stringPosition = "纬度为：" + location.getLatitude() + ",经度为："
+            String stringPosition = "Latitude" + location.getLatitude() + ", Longitude"
                     + location.getLongitude();
             longitude = location.getLongitude();
             latitude = location.getLatitude();
@@ -95,48 +86,35 @@ public class LocationUtil {
 
     public static String getAddress(Location location, Context context) throws IOException {
         if (location == null) {
-//            LogUtils.INSTANCE.d_debugprint("错误","未找到location");
             return "";
         }
 
         Geocoder geocoder = new Geocoder(context);
         boolean flag = Geocoder.isPresent();
-//        LogUtils.INSTANCE.d_debugprint("位置信息","the flag is "+flag);
         StringBuilder stringBuilder = new StringBuilder();
         try {
 
-            //根据经纬度获取地理位置信息
             List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-//
-//            LogUtils.INSTANCE.d_debugprint("经度",Double.toString(location.getLatitude()));
-//            LogUtils.INSTANCE.d_debugprint("纬度",Double.toString(location.getLongitude()));
-
-            //根据地址获取地理位置信息
-            //List<Address> addresses = geocoder.getFromLocationName( "广东省珠海市香洲区沿河路321号", 1);
 
             if (addresses.size() > 0) {
                 Address address = addresses.get(0);
                 for (int i = 0; i < address.getMaxAddressLineIndex(); i++) {
                     stringBuilder.append(address.getAddressLine(i)).append("\n");
                 }
-                stringBuilder.append(address.getCountryName()).append("_");//国家
-                stringBuilder.append(address.getFeatureName()).append("_");//周边地址
-                stringBuilder.append(address.getLocality()).append("_");//市
+                stringBuilder.append(address.getCountryName()).append("_");
+                stringBuilder.append(address.getFeatureName()).append("_");
+                stringBuilder.append(address.getLocality()).append("_");
                 stringBuilder.append(address.getPostalCode()).append("_");
-                stringBuilder.append(address.getCountryCode()).append("_");//国家编码
-                stringBuilder.append(address.getAdminArea()).append("_");//省份
+                stringBuilder.append(address.getCountryCode()).append("_");
+                stringBuilder.append(address.getAdminArea()).append("_");
                 stringBuilder.append(address.getSubAdminArea()).append("_");
-                stringBuilder.append(address.getThoroughfare()).append("_");//道路
-                stringBuilder.append(address.getSubLocality()).append("_");//香洲区
-                stringBuilder.append(address.getLatitude()).append("_");//经度
-                stringBuilder.append(address.getLongitude());//维度
-                /*System.out.println(stringBuilder.toString());*/
-//                LogUtils.INSTANCE.d_debugprint("获取到的地理位置为：",stringBuilder.toString());
-
+                stringBuilder.append(address.getThoroughfare()).append("_");
+                stringBuilder.append(address.getSubLocality()).append("_");
+                stringBuilder.append(address.getLatitude()).append("_");
+                stringBuilder.append(address.getLongitude());
             }
         } catch (IOException e) {
             // TODO Auto-generated catch block
-            Toast.makeText(context, "报错", Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
         return stringBuilder.toString();
