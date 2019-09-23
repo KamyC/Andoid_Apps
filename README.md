@@ -11,7 +11,11 @@
 
 - Each memo automatically stores date information
 
-  
+  ![image](https://github.com/KamyC/Andoid_Apps/blob/master/DemoPics/1.png)
+
+  ![image](https://github.com/KamyC/Andoid_Apps/blob/master/DemoPics/2.png)
+
+  ![image](https://github.com/KamyC/Andoid_Apps/blob/master/DemoPics/3.png)
 
 ### Ongoing Tasks:  
 
