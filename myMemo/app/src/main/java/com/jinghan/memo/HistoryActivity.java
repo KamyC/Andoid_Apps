@@ -22,9 +22,10 @@ import java.util.Map;
 
 public class HistoryActivity extends AppCompatActivity {
     LinkedList<HashMap<String, String>> list;
-
+    //below is the sampe code where I feel proud for myslef
+    //you can find more about my past projects from : https://kamyc.github.io/
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {  
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
 
@@ -47,7 +48,7 @@ public class HistoryActivity extends AppCompatActivity {
                 new String[]{"itemDate", "itemContent"},
                 new int[]{R.id.itemDate, R.id.itemContent});
 
-        listView.setAdapter(adapter);
+        listView.setAdapter(adapter); 
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
